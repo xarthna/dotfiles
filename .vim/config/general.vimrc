@@ -12,9 +12,13 @@ set background=dark
 filetype plugin indent on
 syntax enable
 
-" modelines are comments in files that set behavior
-" e.g. /* vim: set ts=8 sw=4 tw=0 noet : */
-set nomodeline
+set noshowmode
+
+set backupcopy=yes
+
+set updatetime=100
+set timeoutlen=1000
+set ttimeoutlen=0
 
 " If file changes outside vim, read it here
 set autoread
@@ -32,6 +36,13 @@ set wildmenu
 set wildmode=list:longest
 
 set wildignore+=node_modules,target,log,.DS_Store,.git,tmp
+
+" Minimal message information
+set shortmess=a
+set shortmess+=WcFstToOI
+
+" Dont break words on wrap
+set linebreak
 
 " Relative numbers
 set number
@@ -60,20 +71,7 @@ set backup
 set backupdir=~/.vim/backups
 set directory=~/.vim/tmp
 
-" Was trying to get this to work with filetype "help" and BufEnter and wasnt working
-" I think filetype detection happens at diff event lifecycle. Switched filetype to "text"
-" and event to BufRead
-let ftToIgnore = ["text", "gitcommit", "help"]
-"autocmd BufRead,InsertLeave * if index(ftToIgnore, &ft) < 0 | match Error /\t\|\s\+$/
-autocmd BufNewFile,InsertLeave * if !&readonly | match Error /\t\|\s\+$/
-autocmd InsertEnter * match none
-
-" Dont break words on wrap. Cant use with list option set :(
-" set linebreak
-
-" Lets not listchars get in the way of my typing
-autocmd BufEnter,BufNewFile,InsertLeave * if !&ro | set list | set listchars=tab:~~,trail:\ ,extends:>,precedes:<,nbsp:+ | else | set nolist | endif
-autocmd InsertEnter * set nolist
+set nolist
 
 " Disable folding
 set nofoldenable
@@ -86,6 +84,7 @@ set mousehide
 
 " Mouse in all modes
 set mouse=a
+set ttymouse=sgr
 
 " Show matching brackets
 set showmatch
@@ -116,54 +115,13 @@ set laststatus=2
 " Show cursor line
 set cul
 
-" Show cursor column
-"set cuc
-
 " Enable error files & error jumping.
 set cf
 
 " Writes on make/shell commands.
 set autowrite
 
-" No ruler, shows in status.
 set noruler
-
-" Set the status line the way I like it
-set stl=
-
-" Full path file
-"set stl+=\ %F
-" Filetype
-"set stl+=\ %y
-" Modified?
-"set stl+=%m
-" Readonly?
-"set stl+=%r
-" Align right
-"set stl+=%=
-" Current line out of total lines, include percentage
-"set stl+=\ Line:%l/%L[%p%%]
-" Virtual Column
-"set stl+=\ Col:%v
-" Buffer
-"set stl+=\ Buf:%n
-" Ascii and Hex byte
-"set stl+=\ [%b][0x%B]
-
-"change terminal title
-"set title
-
-" These command open folds
-"set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
-
-" PERFORMANCE
-
-" Scrolling was very slow for certain files with
-" syntax on and a lot going on. This solved issue
 set lazyredraw
-
-" Dont syntax highlight past certain col
 set synmaxcol=512
-
-" Faster scrolling
 set ttyfast

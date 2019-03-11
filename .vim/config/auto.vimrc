@@ -68,5 +68,40 @@ augroup END
 
 au FileType json set conceallevel=1
 
-" Add html for tpl files
-"""au BufNewFile,BufRead *.tpl set filetype=html
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set nornu
+  set nonu
+  Limelight
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showcmd
+  set scrolloff=2
+  set nu
+  set rnu
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+au BufNewFile,BufRead *_spec.rb set filetype=spec
+au BufNewFile,BufRead *_spec.rb set syntax=ruby
+
+au FileType ruby nmap <silent><buffer><leader>tt :TestFile<CR>
+au FileType ruby nmap <silent><buffer><leader>tn :TestNearest<CR>
+
+
+function! AttachVt()
+    :call system("tmux split-window -v docker attach virtual_terminal ; tmux resize-pane -y 20")
+endfunction
+
+au FileType ruby nmap <silent><buffer><leader>bp obinding.pry<esc>:w<cr>:call AttachVt()<cr>
+au FileType ruby nmap <silent><buffer><leader>Z :call system("tmux resize-pane -Z")<cr>

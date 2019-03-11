@@ -5,6 +5,35 @@ nmap <leader>q :q<CR>
 " Sudo make me a sandwich
 cmap w!! w !sudo tee % >/dev/null
 
+nmap <silent><leader>tb :TagbarToggle<CR>
+nmap <silent><leader>ts :Tags<CR>
+
+" Next/Prev quickfix error
+nmap <leader>e :cn<CR>
+nmap <leader>E :cp<CR>
+
+" Follow tag up/down
+nmap <leader>u <C-t>
+nmap <leader>d <C-]>
+
+" Go back to previous buffer e.g. <c-6>
+nnoremap <leader>bb :b#<CR>
+
+" Move by virtual lines and keep line numbers correct
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
+" Make ctrl j/k work like n/p (pum, etc)
+inoremap <C-j> <C-n>
+cnoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
+cnoremap <C-k> <C-p>
+
+" Put it in clipboard
+nnoremap y "+y
+vnoremap y "+y
+nnoremap d "+d
+vnoremap d "+d
 
 " Disable help key
 "inoremap <F1> <nop>

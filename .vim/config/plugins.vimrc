@@ -42,6 +42,8 @@ let g:lightline#ale#indicator_ok = " \uf00c "
 
 "=========== NERDTree ============="
 
+let g:NERDTreeDirArrowExpandable = '-'
+let g:NERDTreeDirArrowCollapsible = '.'
 let NERDTreeMinimalUI = 1
 let NERDTreeRespectWildIgnore = 1
 let NERDTreeShowHidden = 1
@@ -49,9 +51,11 @@ let NERDTreeChDirMode = 2
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMapOpenVSplit = 'v'
 let NERDTreeMapOpenSplit = 's'
-map <C-n> :NERDTreeToggle<CR>
+map <silent><C-n> :NERDTreeToggle<CR>
 
 "============ NERDCommenter ======="
+" Dont need everything
+let g:NERDCreateDefaultMappings = 0
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -69,7 +73,8 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-nnoremap <leader>cc <plug>NERDCommenterToggle
+nmap <leader>cc <plug>NERDCommenterToggle
+vmap <leader>cc <plug>NERDCommenterToggle
 
 "============ FZF ======="
 let g:fzf_action = {
@@ -100,18 +105,9 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " Fugitive
-nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>ga :Gadd<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gco :Gcheckout<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gm :Gmove<cr>
-nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>g :Git<space>
-nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
+nnoremap <silent><leader>gs :Gstatus<cr>
+nnoremap <silent><leader>gb :Gblame<cr>
+nnoremap <silent><leader>gd :Gdiff<cr>
 
 "=============== ALE ==================="
 let g:ale_fix_on_save = 1
@@ -165,9 +161,6 @@ endfunction
 
 nmap <silent><leader>nn :call SendRed()<cr>
 
-"Vim-test
-"hi GreenBar term=reverse guifg=#00b300 guibg=#00b300
-"hi RedBar   term=reverse guifg=#FF6666 guibg=#FF6666
 let test#strategy = "asyncrun"
 let test#ruby#rspec#executable = 'docker exec -e RAILS_ENV=test -e RUBYOPT="-W0" virtual_terminal ./bin/rspec --fail-fast'
 let g:asyncrun_exit = "if g:asyncrun_status == 'success' | call SendGreen() | else | call SendRed() | endif"
@@ -196,3 +189,39 @@ nmap ,rr :Require<CR>
 " Highlight yank
 let g:highlightedyank_highlight_duration = 500
 highlight HighlightedyankRegion gui=bold guifg=#f9af28 guibg=#fdedb5
+
+let g:vimade = {
+  \ "normalid": '',
+  \ "normalncid": '',
+  \ "basefg": '',
+  \ "basebg": '',
+  \ "fadelevel": 0.4,
+  \ "colbufsize": 15,
+  \ "rowbufsize": 15,
+  \ "checkinterval": 1000,
+  \ "usecursorhold": 0,
+  \ "detecttermcolors": 1,
+  \ "enablesigns": 1,
+  \ "signsretentionperiod": 4000
+\ }
+
+let g:rainbow_active = 1
+let g:clojure_align_subforms = 1
+let g:clojure_align_multiline_strings = 1
+
+let g:UltiSnipsSnippetsDir="$HOME/.vim/UltiSnips"
+let g:UltiSnipsEditSplit='vertical'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+
+" Give Rg my options
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --smart-case --line-number --no-heading --color=always '.shellescape(<q-args>), 0,
+  \    {'options': '--delimiter : --nth 3 --reverse --prompt "λ " --color hl:#929394,hl+:#ff0000'})
+
+
+let g:vim_search_pulse_duration = 200
+let g:vim_search_pulse_color_list = ['#3a3a3a', '#444444', '#4e4e4e', '#585858', '#606060']

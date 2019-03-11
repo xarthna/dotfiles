@@ -31,49 +31,6 @@ call plug#begin()
   "Plug 'markonm/traces.vim'
   Plug 'inside/vim-search-pulse'
 
-  "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-
-"   set hidden
-"   nnoremap <silent> K :call <SID>show_documentation()<CR>
-"   function! s:show_documentation()
-"   if &filetype == 'vim'
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
-"
-" " Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-"
-
-  " Plug 'natebosch/vim-lsc'
-  " let g:lsc_server_commands = {'ruby': 'localhost:7658'}
-  " let g:lsc_auto_map = v:true
-
-
-
-
-  " Plug 'autozimu/LanguageClient-neovim', {
-  "   \ 'branch': 'next',
-  "   \ 'do': 'bash install.sh',
-  "   \ }
-  "
-  " let g:LanguageClient_serverCommands = {
-  "   \ 'ruby': ['tcp://localhost:7658']
-  "   \ }
-
-  let g:vim_search_pulse_duration = 400
-  let g:vim_search_pulse_color_list = ['#3a3a3a', '#444444', '#4e4e4e', '#585858', '#606060']
-
-" Don't send a stop signal to the server when exiting vim.
-" This is optional, but I don't like having to restart Solargraph
-" every time I restart vim.
-"let g:LanguageClient_autoStop = 0
-
-" Configure ruby omni-completion to use the language client:
-autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
-
   " Languages
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
