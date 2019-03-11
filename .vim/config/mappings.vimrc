@@ -2,12 +2,6 @@
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 
-noremap <leader>p "+p
-noremap <leader>P "+P
-vnoremap <leader>y "+y
-vnoremap <leader>d "+d
-noremap <leader><leader> V
-
 " Sudo make me a sandwich
 cmap w!! w !sudo tee % >/dev/null
 

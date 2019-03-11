@@ -150,9 +150,7 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
 hi Search gui=bold guibg=#504945 guifg=#83a598
-
 " nnoremap <silent> M :call LanguageClient_contextMenu()<CR>
 "nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
@@ -161,5 +159,12 @@ hi Search gui=bold guibg=#504945 guifg=#83a598
 "autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 "autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 "autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+" Put it in clipboard
+nnoremap y "+y
+vnoremap y "+y
+nnoremap d "+d
+vnoremap d "+d
+
 
 set ttymouse=sgr
