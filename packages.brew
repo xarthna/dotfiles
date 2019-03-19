@@ -1,5 +1,6 @@
 amberframework/amber/amber
 bash-completion@2
+bat
 clojure
 clojurescript
 ctop
@@ -9,6 +10,7 @@ fswatch
 fzf
 git
 htop
+httpie
 irssi
 candid82/brew/joker
 leiningen
@@ -22,12 +24,16 @@ postgresql
 rbenv
 ripgrep
 rsync
+socat
 swaks
+task
 tcpdump
 the_silver_searcher
 tmux
+tree
 universal-ctags/universal-ctags/universal-ctags
 vim
 watch
+wget
 yamllint
 yank
