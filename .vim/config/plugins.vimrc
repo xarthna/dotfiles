@@ -83,23 +83,24 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 
 let g:fzf_layout = { 'down': '~35%' }
-nmap <leader>f :Files<CR>
+nmap <silent><leader>f :Files<CR>
 "nmap <leader>b :Buffers<CR>
-nmap <leader>a :Rg<CR>
-nmap <leader><s-h> :History:<CR>
+nmap <silent><leader>a :Ag<CR>
+nmap <silent><leader><s-h> :History:<CR>
 "nmap <leader>t :Tags<CR>
 "imap <c-x><c-k> <plug>(fzf-complete-word)
 
+" Match ag hardcoded highlights from fzf.vim
 let g:fzf_colors =
   \{'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
+  \ 'hl':      ['fg', '4'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
+  \ 'hl+':     ['fg', '12'],
   \ 'info':    ['fg', 'PreProc'],
   \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', '168'],
+  \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
@@ -116,7 +117,7 @@ let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 
 let g:ale_linters = {
-\  'ruby': ['solargraph'],
+\  'ruby': ['rubocop'],
 \  'javascript': ['prettier', 'eslint'],
 \  'clojure': ['joker'],
 \  'crystal': ['crystal'],
@@ -163,6 +164,7 @@ nmap <silent><leader>nn :call SendRed()<cr>
 
 let test#strategy = "asyncrun"
 let test#ruby#rspec#executable = 'docker exec -e RAILS_ENV=test -e RUBYOPT="-W0" virtual_terminal ./bin/rspec --fail-fast'
+let test#crystal#crystalspec#options = '--no-color'
 let g:asyncrun_exit = "if g:asyncrun_status == 'success' | call SendGreen() | else | call SendRed() | endif"
 
 "GitGutter
@@ -184,21 +186,20 @@ let g:vim_json_warnings=0
 " Fireplace
 nmap ,ro cqp
 nmap ,re cpp
-nmap ,rr :Require<CR>
+nmap <silent>,rr :Require<CR>
 
 " Highlight yank
 let g:highlightedyank_highlight_duration = 500
-highlight HighlightedyankRegion gui=bold guifg=#f9af28 guibg=#fdedb5
 
 let g:vimade = {
-  \ "normalid": '',
-  \ "normalncid": '',
+  \ "normalid": 0,
+  \ "normalncid": 0,
   \ "basefg": '',
   \ "basebg": '',
-  \ "fadelevel": 0.4,
+  \ "fadelevel": 0.7,
   \ "colbufsize": 15,
   \ "rowbufsize": 15,
-  \ "checkinterval": 1000,
+  \ "checkinterval": 100,
   \ "usecursorhold": 0,
   \ "detecttermcolors": 1,
   \ "enablesigns": 1,
@@ -223,5 +224,5 @@ command! -bang -nargs=* Rg
   \    {'options': '--delimiter : --nth 3 --reverse --prompt "λ " --color hl:#929394,hl+:#ff0000'})
 
 
-let g:vim_search_pulse_duration = 200
+"let g:vim_search_pulse_duration = 200
 let g:vim_search_pulse_color_list = ['#3a3a3a', '#444444', '#4e4e4e', '#585858', '#606060']

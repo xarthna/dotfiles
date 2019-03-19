@@ -60,15 +60,15 @@ set noerrorbells " No noise.
 set scrolloff=2
 
 " Different colo when diffing
-"au FilterWritePre * if &diff | colorscheme apprentice | endif
-"au BufWinLeave * colorscheme gruvbox
-"if &diff
-"  colorscheme apprentice
-"endif
+" au FilterWritePre * if &diff | colorscheme apprentice | endif
+" au BufWinLeave * colorscheme gruvbox
+" if &diff
+"   colorscheme apprentice
+" endif
 
 " Backups & Files
-set backup
-set backupdir=~/.vim/backups
+"set backup
+"set backupdir=~/.vim/backups
 set directory=~/.vim/tmp
 
 set nolist
@@ -84,14 +84,13 @@ set mousehide
 
 " Mouse in all modes
 set mouse=a
-set ttymouse=sgr
 
 " Show matching brackets
-set showmatch
+"set showmatch
 
 " Highlight searching
 "set hlsearch
-"set incsearch
+set incsearch
 
 " Get rid of characters in separators
 set fillchars = ""
@@ -123,5 +122,6 @@ set autowrite
 
 set noruler
 set lazyredraw
-set synmaxcol=512
+set synmaxcol=256
+set scrolljump=5
 set ttyfast

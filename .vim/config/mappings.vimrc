@@ -35,11 +35,6 @@ vnoremap y "+y
 nnoremap d "+d
 vnoremap d "+d
 
-" Disable help key
-"inoremap <F1> <nop>
-"nnoremap <F1> <nop>
-"vnoremap <F1> <nop>
-
 " Create splits and jump
 nnoremap <leader>\| :vnew<CR><C-w>h
 nnoremap <leader>- :new<CR><C-w>k
@@ -62,12 +57,6 @@ nmap <leader>H <Plug>ResizeWindowLeft
 
 " Map tab to jump between pairs
 noremap <tab> %
-
-" This maps over jumping to top and bottom of screen
-" Only use relative jumps if need that behavior
-" End of line and beginning of line
-nnoremap <S-l> $
-nnoremap <S-h> ^
 
 " Perl like regex
 "nnoremap / /\v

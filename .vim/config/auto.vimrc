@@ -33,8 +33,6 @@ function! RemoveColorColumn()
   :set colorcolumn=0
 endfunction
 
-nmap <leader>nn :call SetColorColumn()<cr>
-
 function! HideSchema()
   normal vapzf
 endfunction
@@ -46,18 +44,18 @@ augroup hideschema
     \ endif
 augroup END
 
-augroup DimInactiveHighlight
-  autocmd!
-  autocmd WinEnter * set relativenumber
-  autocmd WinLeave * set norelativenumber
-  autocmd WinEnter * set cul
-  autocmd WinLeave * set nocul
-  " autocmd WinLeave * call SetColorColumn()
-  " autocmd WinEnter * call RemoveColorColumn()
-augroup END
+" augroup DimInactiveHighlight
+"   autocmd!
+"   autocmd WinEnter * set relativenumber
+"   autocmd WinLeave * set norelativenumber
+"   autocmd WinEnter * set cul
+"   autocmd WinLeave * set nocul
+"   " autocmd WinLeave * call SetColorColumn()
+"   " autocmd WinEnter * call RemoveColorColumn()
+" augroup END
 
 " Ag from fzf.vim to not match on filenames
-"command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 augroup test
   autocmd!
@@ -92,8 +90,8 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-au BufNewFile,BufRead *_spec.rb set filetype=spec
-au BufNewFile,BufRead *_spec.rb set syntax=ruby
+"au BufNewFile,BufRead *_spec.rb set filetype=spec
+"au BufNewFile,BufRead *_spec.rb set syntax=ruby
 
 au FileType ruby nmap <silent><buffer><leader>tt :TestFile<CR>
 au FileType ruby nmap <silent><buffer><leader>tn :TestNearest<CR>
