@@ -18,6 +18,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export GPG_TTY=$(tty)
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd # Linux like ls colors
+export MANPAGER="nvim +set\ filetype=man -"
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx # Miami vice like colors
 
 source $HOME/.bashrc
