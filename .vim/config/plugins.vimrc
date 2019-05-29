@@ -61,10 +61,10 @@ let g:ale_fixers = {
 \  'javascript': ['prettier', 'eslint'],
 \  'json': ['prettier', 'fixjson']
 \}
-nmap <silent> <Plug>MyWrap <Plug>(ale_next_wrap) :call repeat#set("\<Plug>MyWrap", v:count)<cr>
-nmap <silent> <Plug>MyPrevWrap <Plug>(ale_previous_wrap) :call repeat#set("\<Plug>MyPrevWrap", v:count)<cr>
-nmap <leader>ne <Plug>MyWrap
-nmap <leader>pe <Plug>MyPrevWrap
+nmap <silent> <Plug>NextAleError <Plug>(ale_next_wrap) :call repeat#set("\<Plug>NextAleError", v:count)<cr>
+nmap <silent> <Plug>PrevAleError <Plug>(ale_previous_wrap) :call repeat#set("\<Plug>PrevAleError", v:count)<cr>
+nmap <leader>ne <Plug>NextAleError
+nmap <leader>pe <Plug>PrevAleError
 
 "### Tagbar
 let g:tagbar_sort = 0
