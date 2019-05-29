@@ -18,11 +18,14 @@ alias drmac="docker rm $(docker ps -a -q)"
 alias devt="docker exec virtual_terminal"
 alias dcg="docker-compose -f docker-compose-groups.yml"
 alias v="nvim"
-alias nv="nvim"
-alias n="nvim"
 alias vim="nvim"
+alias _vim="vim"
 alias python="python3"
 alias gcal="gcalcli"
+alias ts='date "+%Y-%m-%d"'
+alias ag='ag --path-to-ignore ~/.ignore'
+alias lsv="ls|fzf --preview '[ -d {} ] && tree -C {}|head -200 || cat {}'"
+source ~/.privaterc
 
 # Set up autocomplete for aliases
 if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
