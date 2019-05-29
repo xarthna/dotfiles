@@ -1,47 +1,4 @@
-""""""""""""""""""""""""""""""""""""
-"          PLUGINS                 "
-""""""""""""""""""""""""""""""""""""
-" LightLine
-let g:lightline = {
-\ 'colorscheme': 'gruvbox',
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'readonly', 'gitbranch'],
-\              ['filename', 'modified' ] ],
-\'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-\           [ 'lineinfo' ],
-\           [ 'charvaluehex', 'fileformat', 'fileencoding', 'filetype'] ]
-\ },
-\ 'component': {
-\   'charvaluehex': '[%b] 0x%B'
-\ },
-\ 'component_function': {
-\   'gitbranch': 'fugitive#head'
-\ }
-\ }
-
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok'
-      \ }
-
-let g:lightline.component_type = {
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'left',
-      \ }
-
-let g:lightline#ale#indicator_checking = " \uf9e5"
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = " \uf00c "
-
-
-"=========== NERDTree ============="
-
+"### NERDTree
 let g:NERDTreeDirArrowExpandable = '-'
 let g:NERDTreeDirArrowCollapsible = '.'
 let NERDTreeMinimalUI = 1
@@ -51,46 +8,14 @@ let NERDTreeChDirMode = 2
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMapOpenVSplit = 'v'
 let NERDTreeMapOpenSplit = 's'
-map <silent><C-n> :NERDTreeToggle<CR>
+nmap <silent><C-n> :NERDTreeToggle<CR>
 
-"============ NERDCommenter ======="
-" Dont need everything
-let g:NERDCreateDefaultMappings = 0
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-
-" Align line-wise comment delimiters flush left
-" instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-" Allow commenting and inverting empty lines
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
-nmap <leader>cc <plug>NERDCommenterToggle
-vmap <leader>cc <plug>NERDCommenterToggle
-
-"============ FZF ======="
+"### FZF
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-T': 'tab split',
   \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
+  \ 'ctrl-space': 'vsplit' }
 let g:fzf_layout = { 'down': '~35%' }
-nmap <silent><leader>f :Files<CR>
-"nmap <leader>b :Buffers<CR>
-nmap <silent><leader>a :Ag<CR>
-nmap <silent><leader><s-h> :History:<CR>
-"nmap <leader>t :Tags<CR>
-"imap <c-x><c-k> <plug>(fzf-complete-word)
-
-" Match ag hardcoded highlights from fzf.vim
 let g:fzf_colors =
   \{'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -105,17 +30,21 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" Fugitive
+nmap <silent><leader>f :Files<CR>
+nmap <silent><leader>a :Ag<CR>
+nmap <silent><leader>bc :BCommits<cr>
+nmap <silent><leader>st :Tags<CR>
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, ' --path-to-ignore ~/.ignore ', {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Rg  call fzf#vim#grep('rg --smart-case --line-number --no-heading --color=always '.shellescape(<q-args>), 0, {'options': '--delimiter : --nth 3 --reverse --prompt "λ "'})
+
+"### Fugitive
 nnoremap <silent><leader>gs :Gstatus<cr>
 nnoremap <silent><leader>gb :Gblame<cr>
 nnoremap <silent><leader>gd :Gdiff<cr>
 
-"=============== ALE ==================="
+"### ALE
 let g:ale_fix_on_save = 1
-
-" Only run linters named in ale_linters settings.
 let g:ale_linters_explicit = 1
-
 let g:ale_linters = {
 \  'ruby': ['rubocop'],
 \  'javascript': ['prettier', 'eslint'],
@@ -126,103 +55,100 @@ let g:ale_linters = {
 \  'yaml': ['prettier', 'yamllint'],
 \  'java': ['javac']
 \}
-
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'ruby': ['rubocop'],
 \  'javascript': ['prettier', 'eslint'],
 \  'json': ['prettier', 'fixjson']
 \}
+nmap <silent> <Plug>MyWrap <Plug>(ale_next_wrap) :call repeat#set("\<Plug>MyWrap", v:count)<cr>
+nmap <silent> <Plug>MyPrevWrap <Plug>(ale_previous_wrap) :call repeat#set("\<Plug>MyPrevWrap", v:count)<cr>
+nmap <leader>ne <Plug>MyWrap
+nmap <leader>pe <Plug>MyPrevWrap
 
-" Need to make repeatable
-nmap <leader>ne <Plug>(ale_next_wrap)
-nmap <leader>pe <Plug>(ale_previous_wrap)
-"inoremap <silent> <Plug>(ale_show_completion_menu) <C-x><C-o>
-
-"TagBar
+"### Tagbar
 let g:tagbar_sort = 0
-"nmap <leader>t :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+nmap <silent><leader>pt :TagbarTogglePause<CR>
+nmap <silent><leader>jt :TagbarOpen j<CR>
+nmap <silent><leader>t :TagbarToggle<CR>
 
+"### vim-test
 function! ResetTmuxMessageColor(_)
-  :call system("tmux set-window-option message-fg colour0")
-  :call system("tmux set-window-option message-bg colour251")
+  :call system("tmux set-window-option message-style fg=colour0")
+  :call system("tmux set-window-option message-style bg=colour251")
 endfunction
 
 function! SendGreen()
-  :call system("tmux set-window-option message-bg '#00b300'")
+  :call system("tmux set-window-option message-style 'bg=#00b300'")
   :call system("tmux display-message ''")
   let timer = timer_start(3000, 'ResetTmuxMessageColor')
 endfunction
 
 function! SendRed()
-  :call system("tmux set-window-option message-bg '#FF6666'")
+  :call system("tmux set-window-option message-style 'bg=#FF6666'")
   :call system("tmux display-message ''")
   let timer = timer_start(3000, 'ResetTmuxMessageColor')
 endfunction
 
-nmap <silent><leader>nn :call SendRed()<cr>
+function! InteractiveStrategy(cmd)
+  :call system("tmux split-window -v " . a:cmd . " ; tmux resize-pane -y 30")
+endfunction
 
-let test#strategy = "asyncrun"
-let test#ruby#rspec#executable = 'docker exec -e RAILS_ENV=test -e RUBYOPT="-W0" virtual_terminal ./bin/rspec --fail-fast'
-let test#crystal#crystalspec#options = '--no-color'
+let s:rspec_cmd = 'docker exec -e RAILS_ENV=test -e DOCKER_ENV=true -e RUBYOPT="-W0" virtual_terminal ./bin/rspec --color --fail-fast'
+let g:test#custom_strategies = {'interactive': function('InteractiveStrategy')}
+let g:test#strategy = "asyncrun"
+let g:test#ruby#rspec#executable = s:rspec_cmd
+let g:test#javascript#jest#executable = 'docker exec virtual_terminal ./node_modules/.bin/jest'
 let g:asyncrun_exit = "if g:asyncrun_status == 'success' | call SendGreen() | else | call SendRed() | endif"
 
-"GitGutter
+function! ToggleTestStrategy()
+  if(g:test#strategy == "asyncrun")
+    let g:test#strategy = "interactive"
+  else
+    let g:test#strategy = "asyncrun"
+  endif
+endfunction
 
-"Provide my own maps
+command! ToggleTestStrategy call ToggleTestStrategy()
+
+"### GitGutter
 let g:gitgutter_map_keys = 0
 
-" Repeatable next hunk and previous hunk
-nnoremap <silent> <plug>NextHunk :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR> \:call repeat#set("\<plug>NextHunk")<CR>
-nmap <leader>nh <plug>NextHunk
-nnoremap <silent> <plug>PreviousHunk :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR> \:call repeat#set("\<plug>PreviousHunk")<CR>
-nmap <leader>ph <plug>NextHunk
-nmap <leader>vh <Plug>GitGutterPreviewHunk
-nmap <leader>ch :pclose<CR>
-
-"Json-vim Dont show red let ale do that
+"### json-vim
 let g:vim_json_warnings=0
 
-" Fireplace
+"### Fireplace
 nmap ,ro cqp
 nmap ,re cpp
 nmap <silent>,rr :Require<CR>
 
-" Highlight yank
+"### highlight-yank
 let g:highlightedyank_highlight_duration = 500
 
-let g:vimade = {
-  \ "normalid": 0,
-  \ "normalncid": 0,
-  \ "basefg": '',
-  \ "basebg": '',
-  \ "fadelevel": 0.7,
-  \ "colbufsize": 15,
-  \ "rowbufsize": 15,
-  \ "checkinterval": 100,
-  \ "usecursorhold": 0,
-  \ "detecttermcolors": 1,
-  \ "enablesigns": 1,
-  \ "signsretentionperiod": 4000
-\ }
-
+"### rainbow
 let g:rainbow_active = 1
 let g:clojure_align_subforms = 1
 let g:clojure_align_multiline_strings = 1
 
-let g:UltiSnipsSnippetsDir="$HOME/.vim/UltiSnips"
-let g:UltiSnipsEditSplit='vertical'
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+"### undotree
+let g:undotree_WindowLayout = 4
+let g:undotree_ShortIndicators = 0
+let g:undotree_SplitWidth = 45
+let g:undotree_DiffpanelHeight = 20
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_TreeNodeShape = '•'
+let g:undotree_RelativeTimestamp = 0
+let g:undotree_HelpLine = 0
+let g:clever_f_across_no_line=1
+noremap <silent><leader>H :UndotreeToggle<CR>
 
+"### vim-commentary
+map <leader>cc gcc
 
-" Give Rg my options
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --smart-case --line-number --no-heading --color=always '.shellescape(<q-args>), 0,
-  \    {'options': '--delimiter : --nth 3 --reverse --prompt "λ " --color hl:#929394,hl+:#ff0000'})
+"### clever-f
+map ; <Plug>(clever-f-repeat-forward)
 
-
-"let g:vim_search_pulse_duration = 200
-let g:vim_search_pulse_color_list = ['#3a3a3a', '#444444', '#4e4e4e', '#585858', '#606060']
+"### GV
+nmap <silent><leader>gv :GV!<cr>

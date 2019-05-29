@@ -1,101 +1,65 @@
-set encoding=utf-8
-scriptencoding utf-8
+" Numbers set with autocmd
 
 set nocompatible
-let mapleader = ','
-let maplocalleader = '\\'
-
-colo gruvbox
-
-set background=dark
 
 filetype plugin indent on
 syntax enable
 
+set encoding=utf-8
+scriptencoding utf-8
+
+let mapleader = ','
+let maplocalleader = ','
+
+"# TrueColor
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+set guicursor=n-v:block,i-c:ver25,r-cr:hor20,o:hor50
+  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+  \,sm:block-blinkwait10-blinkoff150-blinkon175
+
+set background=dark
+let g:gruvbox_contrast_dark = 'hard'
+colo gruvbox
+
+set signcolumn=no
+set iskeyword+=-
 set noshowmode
-
-set backupcopy=yes
-
+set tildeop
+set undofile
+set clipboard=unnamedplus
+set nobackup
+set noswapfile
 set updatetime=100
+set timeout
 set timeoutlen=1000
+set ttimeout
 set ttimeoutlen=0
-
-" If file changes outside vim, read it here
 set autoread
-
 set history=1000
-
-" Delete comment character when joining commented lines
 set formatoptions+=j
-
-" Dont remember some things
 set sessionoptions-=options
-
-" Make command-line cmopletion better
 set wildmenu
 set wildmode=list:longest
-
-set wildignore+=node_modules,target,log,.DS_Store,.git,tmp
-
-" Minimal message information
+set wildignore+=node_modules,target,log,.DS_Store,.git,tmp,vendor,tags,.class,.tags
 set shortmess=a
 set shortmess+=WcFstToOI
-
-" Dont break words on wrap
 set linebreak
-
-" Relative numbers
-set number
-set relativenumber
-
-" Set search to ignore case when search is all lower
-" but recognize upper if specified
 set ignorecase
 set smartcase
-
-set novisualbell " No blinking.
-set noerrorbells " No noise.
-
-" Cursor never touches top or bottom of window
+set novisualbell
+set noerrorbells
 set scrolloff=2
-
-" Different colo when diffing
-" au FilterWritePre * if &diff | colorscheme apprentice | endif
-" au BufWinLeave * colorscheme gruvbox
-" if &diff
-"   colorscheme apprentice
-" endif
-
-" Backups & Files
-"set backup
-"set backupdir=~/.vim/backups
-set directory=~/.vim/tmp
-
 set nolist
-
-" Disable folding
 set nofoldenable
-
-" Add ignorance of whitespace to diff
 set diffopt=iwhite
-
-" Hide mouse after while typing
 set mousehide
-
-" Mouse in all modes
 set mouse=a
-
-" Show matching brackets
-"set showmatch
-
-" Highlight searching
-"set hlsearch
+set showmatch
 set incsearch
-
-" Get rid of characters in separators
-set fillchars = ""
-
-" Whitespace
+set fillchars=""
 set shiftround
 set shiftwidth=2
 set tabstop=2
@@ -105,23 +69,13 @@ set smarttab
 set autoindent
 set copyindent
 set backspace=indent,eol,start
-
-" Cursor freedom
 set virtualedit=all
-
 set laststatus=2
-
-" Show cursor line
 set cul
-
-" Enable error files & error jumping.
 set cf
-
-" Writes on make/shell commands.
-set autowrite
-
 set noruler
 set lazyredraw
 set synmaxcol=256
 set scrolljump=5
 set ttyfast
+set tags=.tags
