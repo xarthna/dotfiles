@@ -3,6 +3,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias ls="ls -FG"
+alias lh="ls -ld .?*"
 alias ll="ls -lhaFG"
 alias g="git"
 alias murder="kill"
@@ -17,6 +18,7 @@ alias dcfg="docker-compose logs -f"
 alias drmac="docker rm $(docker ps -a -q)"
 alias devt="docker exec virtual_terminal"
 alias dcg="docker-compose -f docker-compose-groups.yml"
+alias f="fg"
 alias v="nvim"
 alias vim="nvim"
 alias _vim="vim"
@@ -25,6 +27,7 @@ alias gcal="gcalcli"
 alias ts='date "+%Y-%m-%d"'
 alias ag='ag --path-to-ignore ~/.ignore'
 alias lsv="ls|fzf --preview '[ -d {} ] && tree -C {}|head -200 || cat {}'"
+alias k="kubectl"
 source ~/.privaterc
 
 # Set up autocomplete for aliases
@@ -51,3 +54,4 @@ fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval "$(rbenv init -)"
+eval "$(pandoc --bash-completion)"
