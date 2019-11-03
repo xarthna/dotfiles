@@ -7,7 +7,7 @@ export FZF_CTRL_T_COMMAND="fd --type f --exclude .git -H"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export NVM_DIR="$HOME/.nvm"
-export PS1="\u@\h \[\e[31m\][\W]\[\e[0m\] "
+export PS1="me@\h \[\e[31m\][\W]\[\e[0m\] "
 export EDITOR='vim'
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
@@ -20,4 +20,6 @@ export GPG_TTY=$(tty)
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd # Linux like ls colors
 export MANPAGER="nvim +set\ filetype=man -"
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx # Miami vice like colors
+# TERM=xterm-256color-italic # getting italics in tmux/iterm/vim
 source $HOME/.bashrc
+
