@@ -4,3 +4,7 @@ set visible-stats on
 set mark-symlinked-directories on
 set echo-control-characters off
 set completion-ignore-case on
+set show-mode-in-prompt off
+set vi-ins-mode-string \1\e[5 q\2
+set vi-cmd-mode-string \1\e[1 q\2
+set keyseq-timeout 0
