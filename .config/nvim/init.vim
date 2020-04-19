@@ -1,23 +1,33 @@
+" global mark V set here
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:ruby_host_prog = '$HOME/.rbenv/shims/neovim-ruby-host'
-let g:node_host_prog = '$HOME/.nvm/versions/node/v11.6.0/bin/neovim-node-host'
-let &packpath = &runtimepath
+let g:node_host_prog = '$HOME/.nvm/versions/node/v12.7.0/bin/neovim-node-host'
 let mapleader = ','
-let maplocalleader = ','
+let maplocalleader = "\<space>"
 
 set nocompatible
 filetype plugin indent on
 syntax enable
 
-runtime! plug.vim
+set runtimepath+=/usr/local/opt/fzf
 
-colo palenight
+" vim invokes subshell for external commmands. These options make it sane for
+" things like **/*
+"set shell+=\ -O\ globstar
+"set shell+=\ -O\ extglob
+
+runtime! plug.vim
+runtime! plugin/color_overrides.vim
+
+colo molokai
+set confirm
 set termguicolors
 set background=dark
 set encoding=utf-8
 set hidden
 set completeopt=menu,menuone,noinsert,noselect
+set number
 set relativenumber
 set signcolumn=yes
 set noshowmode
@@ -31,14 +41,13 @@ set timeout
 set timeoutlen=1000
 set ttimeout
 set ttimeoutlen=0
-set autoread
-"set autowrite
+set nohlsearch
+set incsearch
 set history=1000
-set formatoptions=tcqjr
 set sessionoptions-=options
 set wildmenu
 set wildmode=list:longest
-set wildignore+=node_modules,target,log,.DS_Store,.git,tmp,vendor,tags,.class,.tags
+set wildignore+=node_modules,target,log,.DS_Store,.git,tmp,vendor,tags,.class,.tags,vendor
 set shortmess=a
 set shortmess+=WcFstToOI
 set linebreak
@@ -68,7 +77,8 @@ set cul
 set cf
 set noruler
 set lazyredraw
-set synmaxcol=256
+set synmaxcol=512
+set inccommand=split
 set scrolljump=5
 set ttyfast
 set tags=.tags
@@ -79,46 +89,90 @@ set guicursor=n-v:block,i-c:ver25,r-cr:hor20,o:hor50
 map Q <nop>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
+nnoremap <leader>x :x<CR>
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
+nnoremap ]a :next<CR>
+nnoremap [a :prev<CR>
+nnoremap ]t :tnext<CR>
+nnoremap [t :tprev<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprev<CR>
+nnoremap ]L :lfirst<CR>
+nnoremap ]L :last<CR>
 nnoremap ]l :lnext<CR>
 nnoremap [l :lprev<CR>
-nnoremap <leader>u <C-t>
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprev<CR>
+nnoremap [B :bfirst<CR>
+nnoremap ]B :blast<CR>
+nnoremap <leader><C-d> <C-t>
 nnoremap <leader>d <C-]>
-nnoremap <leader>bb :b#<CR>
+nnoremap <leader>b :b#<CR>
 nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 cnoremap <C-j> <C-n>
 cnoremap <C-k> <C-p>
-nnoremap <silent><space> :nohlsearch<Bar>:echo<CR>
 nnoremap <leader>h :tab h<space>
 nnoremap ' `
 nnoremap / /\v
 vnoremap / /\v
-nmap <silent> <leader><leader> <Plug>QuickFixToggle
+nmap <silent> <localleader><localleader> <Plug>QuickFixToggle
 nmap <silent> <leader>l <Plug>LocationListToggle
 inoremap <special><expr> <Esc>[200~ XTermPasteBegin()
-" TODO: update on write
-nmap <silent> <leader>om <Plug>OpenMarkdownPreview
-nmap <silent> <leader>op <Plug>OpenPandocPreview
-noremap <silent><leader>V :edit $HOME/.config/nvim/init.vim<CR>
-" below messes with digraphs
-"inoremap <C-j> <C-n>
-"inoremap <C-k> <C-p>
+" TODO: update on write?
+"nmap <silent> <leader>om <Plug>OpenMarkdownPreview
+"nmap <silent> <leader>op <Plug>OpenPandocPreview
+inoremap <expr> <esc> pumvisible() ? "\<C-e>" : "\<esc>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+autocmd FileType * set fo-=j fo-=l fo-=o fo+=t
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+noremap <leader>n nzz
+noremap <leader>N Nzz
+noremap \ ,
+"nmap <tab> %
 
-iabbrev #d '========================================='
-
-hi link HighlightedyankRegion PmenuSel
-hi! link IncSearch PmenuSel
-hi! link Search PmenuSel
-hi! link DiffChange PmenuSel
-hi! link DiffText Directory
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$' " Show git merge error markers
 
-" Test runners  with ansi color escape happens in quickfix
-" FIXME: Reseting style overrides from hi.vim
-"au FileType qf :AnsiEsc
+autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
+
+let g:scheme_executable = "$HOME/bin/scheme.sh"
+
+function! SchemeConnectWrapper()
+  :SchemeConnect
+  exe "normal \<C-w>L"
+  vert resize -50
+  exe "normal \<C-w>h"
+endfunction
+
+command! SConnect call SchemeConnectWrapper()
+command! Abort :cq<CR>
+command! Please :w !sudo tee %<CR>
+
+function! Syn()
+  for id in synstack(line("."), col("."))
+    echo synIDattr(id, "name")
+  endfor
+endfunction
+command! -nargs=0 Syn call Syn()
+
+augroup terminal_settings
+  autocmd!
+
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
+
+  " Ignore various filetypes as those will close terminal automatically
+  autocmd TermClose term://*
+        \ if (expand('<afile>') !~ "fzf") |
+        \   call nvim_input('<CR>')  |
+        \ endif
+augroup END

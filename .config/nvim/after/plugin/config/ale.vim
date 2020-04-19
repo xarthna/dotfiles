@@ -1,6 +1,9 @@
-if ! g:loaded_ale
+if ! exists('g:loaded_ale')
   finish
 endif
+
+highlight ALEError guifg=red gui=underline
+highlight ALEWarning guifg=#FFA500 gui=underline
 
 let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1

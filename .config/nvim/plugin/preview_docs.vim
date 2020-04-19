@@ -20,7 +20,7 @@ let s:callbacks = {
   \ }
 
 function! s:OpenPandocPreview() abort
-  let s:pandoc_job_id = jobstart('pandoc --template=/Users/rcharette/.config/pandoc/default.latex -o ' . expand('%:r') . '.pdf ' . expand('%:p'), s:callbacks)
+  let s:pandoc_job_id = jobstart('pandoc -f markdown -s --template=$HOME/.local/share/pandoc/templates/default.latex -o ' . expand('%:r') . '.pdf ' . expand('%:p'), s:callbacks)
   if s:pandoc_job_id <= 0 | return | endif
   call system('open -a skim -g ' . expand('%:r') . '.pdf')
 endfunction

@@ -1,17 +1,17 @@
 setlocal foldmethod=expr
 setlocal foldexpr=getline(v:lnum)=~'^\\s*#'
 setlocal iskeyword+=!,?
+setlocal keywordprg=:botright\ 20sp\ term://ri
 
 nnoremap <silent><buffer> <leader>T :TestFile<CR>
 nnoremap <silent><buffer> <leader>t :TestNearest<CR>
 
+iabbrev <buffer> dbg puts "========================================= #{
+iabbrev <buffer> pry binding.pry
+
 au! BufWrite <buffer> if test#exists() | TestNearest | endif
 au! BufWritePost * call GenerateTags()
 
-"if exists(b:vcm_tab_complete)
-"  let b:vcm_tab_complete = "omni"
-"endif
-
 execute "normal zM``"
 
-let b:undo_ftplugin = "setlocal foldmethod< foldexp< iskeyword<"
+let b:undo_ftplugin = "setlocal foldmethod< foldexpr< iskeyword< keywordprg<"
