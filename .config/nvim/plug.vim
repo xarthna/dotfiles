@@ -19,7 +19,6 @@ call plug#begin()
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-vinegar'
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'vim-pandoc/vim-pandoc-syntax' 
   Plug 'wellle/targets.vim'

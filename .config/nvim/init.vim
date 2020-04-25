@@ -122,6 +122,7 @@ nnoremap <localleader>h :tab h<space>
 nnoremap ' `
 nnoremap / /\v
 vnoremap / /\v
+nmap <silent> <C-n> :Exp<CR>
 nmap <silent> <localleader><localleader> <Plug>QuickFixToggle
 nmap <silent> <leader>l <Plug>LocationListToggle
 inoremap <special><expr> <Esc>[200~ XTermPasteBegin()
