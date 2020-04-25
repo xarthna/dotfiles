@@ -1,5 +1,3 @@
-setlocal foldmethod=expr
-setlocal foldexpr=getline(v:lnum)=~'^\\s*#'
 setlocal iskeyword+=!,?
 setlocal keywordprg=:botright\ 20sp\ term://ri
 
@@ -9,12 +7,78 @@ nnoremap <silent><buffer> <leader>t :TestNearest<CR>
 iabbrev <buffer> dbg puts "========================================= #{
 iabbrev <buffer> pry binding.pry
 
-au! BufWrite <buffer> if test#exists() | TestNearest | endif
+let b:testprg='DOCKER_ENV=true ./bin/rspec --tty --color --require $HOME/quickfix_formatter.rb --format QuickfixFormatter'
+
+function! TestCallback(job_id, data, event)
+  if a:event == 'stdout'
+    cgetexpr a:data
+  end
+
+  if a:event == 'exit'
+    if a:data
+      call SendRed()
+    else
+      call SendGreen()
+    end
+  end
+endfunction
+
+function! TestFile(fname)
+  let l:callback = {'on_exit': 'TestCallback', 'on_stdout': 'TestCallback', 'stdout_buffered': v:true} 
+  call jobstart(b:testprg . ' ' . a:fname, l:callback)
+endfunction
+
+function! TestNearest(fname) abort
+  let l:callback = {'on_exit': 'TestCallback', 'on_stdout': 'TestCallback', 'stdout_buffered': v:true} 
+  let l:alternate = substitute(fnamemodify(a:fname, ':t'), '.rb', '_spec.rb', '')
+  let l:path = fnamemodify(a:fname, ':h')
+  let l:spec_file = a:fname
+
+  let l:line = 1
+  if a:fname =~ '_spec.rb'
+    let l:line = line('.')
+  else
+    let l:buf = getbufinfo(l:alternate)
+    if !empty(l:buf)
+      let l:line = get(l:buf[0], 'lnum', 1)
+      let l:spec_file = l:path . '/' . l:alternate
+      echom l:spec_file
+      if l:path =~ '^app'
+        let l:spec_file = substitute(l:spec_file, 'app', 'spec', '')
+      else
+        let l:spec_file = substitute(l:spec_file, 'lib', 'spec/lib', '')
+      end
+    end
+  end
+
+  call jobstart(b:testprg . ' ' . l:spec_file . ':' . l:line, l:callback)
+endfunction
+
+command! TestNearest call TestNearest(expand('%'))
+command! TestFile call TestFile(expand('%'))
+
 au! BufWritePost * call GenerateTags()
 
-execute "normal zM``"
-
 setlocal makeprg=rubocop\ --format\ emacs
+
+function! ResetTmuxMessageColor(_)
+  call system("tmux set-window-option message-style fg='#8be9fd'")
+  call system("tmux set-window-option message-style bg='#44475a'")
+endfunction
+
+function! SendGreen()
+  let timer = timer_start(3000, 'ResetTmuxMessageColor')
+
+  call system("tmux set-window-option message-style 'bg=#00b300'")
+  call system("tmux display-message ''")
+endfunction
+
+function! SendRed()
+  let timer = timer_start(3000, 'ResetTmuxMessageColor')
+
+  call system("tmux set-window-option message-style 'bg=#FF6666'")
+  call system("tmux display-message ''")
+endfunction
 
 function! PlaceSign(sname, lnum)
   call sign_place(a:lnum, 'MyLinter', a:sname, bufname('%'), {'lnum': a:lnum})
@@ -67,4 +131,8 @@ augroup linting
   autocmd! CursorMoved * call UpdateLinterMessage()
 augroup END
 
-let b:undo_ftplugin = "setlocal foldmethod< foldexpr< iskeyword< keywordprg< makeprg<"
+augroup testing
+  au! BufWrite <buffer> call TestNearest(expand('<afile>'))
+augroup END
+
+let b:undo_ftplugin = "setlocal iskeyword< keywordprg< makeprg<"
