@@ -49,12 +49,9 @@ function! UpdateMode()
 endfunction
 
 function! LinterStatus()
-   let l:counts = ale#statusline#Count(bufnr('%'))
-   let l:all_errors = l:counts.error + l:counts.style_error
-   let l:all_non_errors = l:counts.total - l:all_errors
-   if l:all_errors > 0
+   if exists('b:has_errors') && b:has_errors
      return "%#LinterError#\uf05e "
-   elseif l:all_non_errors > 0
+   elseif exists('b:has_warnings') && b:has_warnings
      return "%#LinterWarn#\uf071 "
    else
      return "%#LinterOk#\uf00c "
@@ -66,4 +63,3 @@ function! Status()
 endfunction
 
 set stl=%!Status()
-

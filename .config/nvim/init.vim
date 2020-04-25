@@ -7,8 +7,8 @@ let mapleader = ','
 let maplocalleader = "\<space>"
 
 set nocompatible
-filetype plugin indent on
 syntax enable
+filetype plugin indent on
 
 set runtimepath+=/usr/local/opt/fzf
 
@@ -80,6 +80,7 @@ set lazyredraw
 set synmaxcol=512
 set inccommand=split
 set scrolljump=5
+set errorformat^=%f:%l:%c:\ %t:%m
 set ttyfast
 set tags=.tags
 set guicursor=n-v:block,i-c:ver25,r-cr:hor20,o:hor50
@@ -117,7 +118,7 @@ nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 cnoremap <C-j> <C-n>
 cnoremap <C-k> <C-p>
-nnoremap <leader>h :tab h<space>
+nnoremap <localleader>h :tab h<space>
 nnoremap ' `
 nnoremap / /\v
 vnoremap / /\v
