@@ -7,7 +7,7 @@ nnoremap <silent><buffer> <leader>t :TestNearest<CR>
 iabbrev <buffer> dbg puts "========================================= #{
 iabbrev <buffer> pry binding.pry
 
-let b:testprg='DOCKER_ENV=true ./bin/rspec --tty --color --require $HOME/quickfix_formatter.rb --format QuickfixFormatter'
+let b:testprg='DOCKER_ENV=true ./bin/rspec --require $VIMHOME/quickfix_formatter.rb --format QuickfixFormatter'
 
 function! TestCallback(job_id, data, event)
   if a:event == 'stdout'

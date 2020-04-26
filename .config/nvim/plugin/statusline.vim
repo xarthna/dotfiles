@@ -4,19 +4,8 @@ function! CurrentGitBranch()
 endfunction
 
 function! Filetype()
-  return empty(&ft) ? '|' : '| ' . &ft . ' |'
+  return empty(&ft) ? '' : &ft . ' |'
 endfunction
-
-hi link StatusBg CursorLine
-hi LinterOk guifg=#00FF00 guibg=#2c323c
-hi LinterWarn guifg=#EAF940 guibg=#2c323c
-hi LinterError guifg=#FF0000 guibg=#2c323c
-hi Path guifg=#8be9fd guibg=#2c323c
-hi ModeOrange guibg=#FE8019 guifg=#262626
-hi ModeGreen guibg=#B8BB26 guifg=#262626
-hi ModeAqua guibg=#8EC07C guifg=#262626
-hi ModeNormal guibg=#EBDBB2 guifg=#262626
-
 
 function! ModeName()
   let l:currentmode={
@@ -50,16 +39,22 @@ endfunction
 
 function! LinterStatus()
    if exists('b:has_errors') && b:has_errors
-     return "%#LinterError#\uf05e "
+     return "%#LinterError# \uf05e "
    elseif exists('b:has_warnings') && b:has_warnings
-     return "%#LinterWarn#\uf071 "
+     return "%#LinterWarn# \uf071 "
    else
-     return "%#LinterOk#\uf00c "
+     return "%#LinterOk# \uf00c "
    endif
 endfunction
 
+function! ColumnNr()
+  let l:col = col('.')
+  return l:col < 10 ? '0' . l:col : l:col
+endfunction
+
+
 function! Status()
-  return UpdateMode() . " %#StatusBg#%  %m %#Path#% " . CurrentGitBranch() . "%#StatusBg#%  %= [%b]\ 0x%B | %#Path#%t%#StatusBg# %{Filetype()} %l/%L " . LinterStatus()
+  return UpdateMode() . " %#StatusBg#%  %m %#Path#% " . CurrentGitBranch() . "%#StatusBg#%  %= [%b]\ 0x%B %#Path#%t%#StatusBg# %l/%L:" . ColumnNr() . LinterStatus()
 endfunction
 
 set stl=%!Status()
