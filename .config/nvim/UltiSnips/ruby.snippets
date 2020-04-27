@@ -1,0 +1,45 @@
+snippet c "class" b
+class ${1:class}
+  $0
+end
+endsnippet
+
+snippet ci "inherited class" b
+class ${1:class} < ${2:parent}
+  $0
+end
+endsnippet
+
+snippet m "def" b
+def ${1:method}
+  $0
+end
+endsnippet
+
+snippet cm "class def" b
+def self.${1:method}
+  $0
+end
+endsnippet
+
+snippet i "include" b
+include ${1:module}
+endsnippet
+
+snippet e "extend" b
+extend ${1:module}
+endsnippet
+
+snippet init "initialize" b
+def initialize$0
+end
+endsnippet
+
+snippet bv "block value"
+{ |$1| $0 }
+endsnippet
+
+snippet b "block"
+{ $0 }
+endsnippet
+

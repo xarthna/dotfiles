@@ -5,6 +5,19 @@ augroup WindowManagement
   autocmd FileType fzf setlocal winhighlight=Normal:Normal
 augroup END
 
+augroup terminal_settings
+  autocmd!
+
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
+
+  " Ignore various filetypes as those will close terminal automatically
+  autocmd TermClose term://*
+        \ if (expand('<afile>') !~ "fzf") |
+        \   call nvim_input('<CR>')  |
+        \ endif
+augroup END
+
 function! OpenInitialTerminal()
   :sp
   :term
