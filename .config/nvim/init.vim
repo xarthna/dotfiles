@@ -3,6 +3,20 @@ let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:ruby_host_prog = '$HOME/.rbenv/shims/neovim-ruby-host'
 let g:node_host_prog = '$HOME/.nvm/versions/node/v12.7.0/bin/neovim-node-host'
+
+
+
+
+let g:os = system('uname -s')
+let g:isMac = v:false
+let g:isLinux = v:false
+
+if g:os == 'Darwin'
+  let g:isMac = v:true
+else
+  let g:isLinux = v:true
+endif
+
 let mapleader = ','
 let maplocalleader = "\<space>"
 let $VIMHOME=expand('<sfile>:p:h')
@@ -14,9 +28,10 @@ syntax enable
 filetype plugin indent on
 set termguicolors
 
-colo equinusocio_material 
-
 set background=dark
+
+colo palenight
+
 set clipboard=unnamedplus
 set completeopt=menu,menuone,noinsert,noselect
 set confirm
@@ -97,5 +112,10 @@ nnoremap ]q :cnext<CR>
 nnoremap ]t :tnext<CR>
 nnoremap N Nzz
 nnoremap n nzz
+inoremap <expr><tab> (pumvisible() ? "\<C-n>" : "\<tab>")
+inoremap <expr><S-tab> (pumvisible() ? "\<C-p>" : "\<S-tab>")
 "vnoremap / /\v
 "nnoremap / /\v
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
