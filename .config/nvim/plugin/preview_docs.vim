@@ -19,10 +19,14 @@ let s:callbacks = {
   \ 'on_exit': function('s:OnEvent')
   \ }
 
-function! s:OpenPandocPreview() abort
-  let s:pandoc_job_id = jobstart('pandoc -f markdown -s --template=$HOME/.local/share/pandoc/templates/default.latex -o ' . expand('%:r') . '.pdf ' . expand('%:p'), s:callbacks)
+function! OpenPandocPreview() abort
+  let s:pandoc_job_id = jobstart('pandoc -f markdown -s --template=/usr/share/pandoc/data/templates/default.latex -o ' . expand('%:r') . '.pdf ' . expand('%:p'), s:callbacks)
   if s:pandoc_job_id <= 0 | return | endif
-  call system('open -a skim -g ' . expand('%:r') . '.pdf')
+  if g:isMac
+    call system('open -a skim -g ' . expand('%:r') . '.pdf')
+  else
+    call system('zathura --fork ' . expand('%:r') . '.pdf')
+  endif
 endfunction
 
 nnoremap <Plug>OpenPandocPreview

@@ -21,7 +21,9 @@ augroup END
 function! OpenInitialTerminal()
   :sp
   :term
-  resize -10
+  if g:isMac
+    resize -10
+  endif
   exe "normal i"
 endfunction
 
@@ -44,7 +46,9 @@ function! ToggleTerminal()
 
     if l:is_hidden
       exe 'sb' l:buf_nr
-      resize -10
+      if g:isMac
+        resize -10
+      endif
     else
       exe l:win_nr . 'hide'
     endif
@@ -54,7 +58,7 @@ function! ToggleTerminal()
 endfunction
 
 " Want esc to work with fzf still to close out
-tnoremap <C-v><esc> <C-\><C-n> 
+tnoremap <C-q><esc> <C-\><C-n> 
 tnoremap <expr> <C-j> &ft == 'fzf' ? "\<C-j>" : "\<C-\>\<C-n>\<C-w>j"
 tnoremap <expr> <C-k> &ft == 'fzf' ? "\<C-k>" : "\<C-\>\<C-n>\<C-w>k"
 tnoremap <expr> <C-h> &ft == 'fzf' ? "\<C-h>" : "\<C-\>\<C-n>\<C-w>h"
