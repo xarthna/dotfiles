@@ -1,13 +1,10 @@
 call plug#begin()
-  " Plug 'pechorin/any-jump.vim'
-  " Plug 'plasticboy/vim-markdown'
   Plug 'SirVer/ultisnips'
   Plug 'airblade/vim-gitgutter'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'honza/vim-snippets'
   Plug 'junegunn/fzf.vim'
-  Plug 'machakann/vim-highlightedyank'
-  Plug 'michaeljsmith/vim-indent-object'
+  "Plug 'michaeljsmith/vim-indent-object'
   Plug 'rhysd/git-messenger.vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'tpope/vim-commentary'
@@ -15,8 +12,6 @@ call plug#begin()
   Plug 'tpope/vim-projectionist'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
-  Plug 'vim-pandoc/vim-pandoc'
-  Plug 'vim-pandoc/vim-pandoc-syntax' 
   Plug 'wellle/targets.vim'
 
   " CLOJURE
@@ -27,8 +22,6 @@ call plug#begin()
   Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': ['clojure', 'scheme']}
 
   " Colorschemes "
-  Plug 'chuling/vim-equinusocio-material'
   Plug 'drewtempelmeyer/palenight.vim'
-  Plug 'morhetz/gruvbox'
-  Plug 'tomasr/molokai'
+  "Plug 'morhetz/gruvbox'
 call plug#end()
