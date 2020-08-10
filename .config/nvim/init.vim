@@ -1,9 +1,7 @@
 " global mark V set here
-let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:ruby_host_prog = '$HOME/.rbenv/shims/neovim-ruby-host'
-let g:node_host_prog = '$HOME/.nvm/versions/node/v12.7.0/bin/neovim-node-host'
-
+let g:node_host_prog = '$HOME/.nodenv/shims/neovim-node-host'
 
 
 
@@ -39,6 +37,7 @@ set copyindent
 set cursorline
 set diffopt+=iwhiteeol,indent-heuristic,algorithm:histogram
 set errorformat^=%f:%l:%c:\ %t:%m
+set fo-=ro
 set expandtab
 set guicursor=n-v:block,i-c:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait10-blinkoff150-blinkon175
 set hidden
@@ -119,3 +118,14 @@ inoremap <expr><S-tab> (pumvisible() ? "\<C-p>" : "\<S-tab>")
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+function! FzfTagsCurrentWord()
+  let l:word = expand('<cword>')
+  let l:list = taglist(l:word)
+  if len(l:list) == 1
+    execute ':tag ' . l:word
+  else
+    call fzf#vim#tags(l:word)
+  endif
+endfunction
+
+noremap <c-]> :call FzfTagsCurrentWord()<cr>

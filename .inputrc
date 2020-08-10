@@ -6,6 +6,9 @@ set echo-control-characters off
 set completion-ignore-case on
 set show-mode-in-prompt off
 set keyseq-timeout 0
+set convert-meta on
 
 # \C-k is bound in tmux to jump between splits
-"\C-o": kill-line
+# \C-l is bound in tmux to jump between splits
+"\M-k":kill-line
+"\M-l":clear-screen

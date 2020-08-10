@@ -18,6 +18,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export GPG_TTY=$(tty)
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+export BASH_SILENCE_DEPRECATION_WARNING=1
+export PATH="/usr/local/opt/helm@2/bin:$PATH"
 
 source $HOME/.bashrc
-export PATH="/usr/local/opt/helm@2/bin:$PATH"

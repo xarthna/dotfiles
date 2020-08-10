@@ -13,6 +13,7 @@ call plug#begin()
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'wellle/targets.vim'
+  Plug 'junegunn/goyo.vim'
 
   " CLOJURE
   Plug 'Olical/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
