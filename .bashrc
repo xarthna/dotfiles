@@ -1,4 +1,4 @@
-alias cfg='/usr/local/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' # dotfiles git alias watching $HOME
+alias cfg="$(command -v git) --git-dir=$HOME/.cfg/ --work-tree=$HOME" # dotfiles git alias watching $HOME
 alias ..="cd .."
 alias ....="cd ../.."
 alias ls="ls -FG"
@@ -8,7 +8,6 @@ alias g="git"
 alias be="bundle exec"
 alias d="docker"
 alias dc="docker-compose"
-alias drmac="docker rm $(docker ps -a -q)"
 alias f="fg"
 alias v="nvim"
 alias vim="nvim"
@@ -20,29 +19,30 @@ alias ts='date "+%Y-%m-%d"'
 alias lsv="ls|fzf --preview '[ -d {} ] && tree -C {}|head -200 || cat {}'"
 alias k="kubectl"
 alias ssh="TERM=xterm ssh "
-source ~/.privaterc
+
+if [ -f ~/.privaterc ]; then
+  source ~/.privaterc
+fi
 
 # Set up autocomplete for aliases
-if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
-  source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
+if [[ $(uname -s) == 'Darwin' ]]; then
+  source /usr/local/etc/bash_completion.d/git-completion.bash
   __git_complete g __git_main
-fi
 
-if [ -f /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion ]; then
   source /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
   complete -F _docker_compose dc
-fi
 
-if [ -f /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion ]; then
   source /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
   complete -F _docker d
 fi
 
 if [[ -z $(pgrep gpg-agent) ]]; then
-  eval $(gpg-agent --daemon --pinentry-program /usr/local/bin/pinentry)
+  eval $(gpg-agent --daemon --pinentry-program /usr/bin/pinentry)
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export PS1="\[\e[1;3m\]\W\[\e[0m\]\[\e[1;36m\] >\[\e[0m\] "
 
 function motd() {
   local IFS=$'\n'
@@ -73,6 +73,15 @@ function motd() {
 
 motd
 
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
-eval "$(jenv init -)"
+if [ $(command -v rbenv) ]; then
+  eval "$(rbenv init -)"
+fi
+
+if [ $(command -v nodenv) ]; then
+  eval "$(nodenv init -)"
+fi
+
+if [ $(command -v jenv) ]; then
+  eval "$(jenv init -)"
+fi
+

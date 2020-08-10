@@ -7,7 +7,6 @@ export FZF_CTRL_T_COMMAND="fd --type f --exclude .git -H"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_CTRL_T_OPTS="--preview '(bat {} || tree -C {}) 2> /dev/null | head -200'"
 export NVM_DIR="$HOME/.nvm"
-export PS1="\[\e[1;3m\]\W\[\e[0m\]\[\e[1;36m\] >\[\e[0m\] "
 export EDITOR='nvim'
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
