@@ -1,6 +1,5 @@
 " global mark V set here
-let g:python_host_prog = trim(system('which python2'))
-let g:python3_host_prog = trim(system('which python'))
+let g:python3_host_prog = trim(system('which python3'))
 let g:ruby_host_prog = '$HOME/.rbenv/shims/neovim-ruby-host'
 let g:node_host_prog = '$HOME/.nodenv/shims/neovim-node-host'
 
