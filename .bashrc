@@ -1,23 +1,14 @@
-alias config='/usr/local/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' # dotfiles git alias watching $HOME
+alias cfg='/usr/local/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' # dotfiles git alias watching $HOME
 alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
+alias ....="cd ../.."
 alias ls="ls -FG"
 alias lh="ls -ld .?*"
 alias ll="ls -lhaFG"
 alias g="git"
-alias murder="kill"
-alias rampage="killall"
-alias dds="find . -name ‘*.DS_Store’ -type f -delete"
-alias gem-implode='for x in `gem list --no-versions`; do gem uninstall $x -a -x -I; done'
-alias gst='git status -sb'
 alias be="bundle exec"
 alias d="docker"
 alias dc="docker-compose"
-alias dcfg="docker-compose logs -f"
 alias drmac="docker rm $(docker ps -a -q)"
-alias devt="docker exec virtual_terminal"
-alias dcg="docker-compose -f docker-compose-groups.yml"
 alias f="fg"
 alias v="nvim"
 alias vim="nvim"
@@ -25,9 +16,10 @@ alias _vim="vim"
 alias python="python3"
 alias gcal="gcalcli"
 alias ts='date "+%Y-%m-%d"'
-alias ag='ag --path-to-ignore ~/.ignore'
+#alias ag='ag --path-to-ignore ~/.ignore'
 alias lsv="ls|fzf --preview '[ -d {} ] && tree -C {}|head -200 || cat {}'"
 alias k="kubectl"
+alias ssh="TERM=xterm ssh "
 source ~/.privaterc
 
 # Set up autocomplete for aliases
@@ -50,8 +42,37 @@ if [[ -z $(pgrep gpg-agent) ]]; then
   eval $(gpg-agent --daemon --pinentry-program /usr/local/bin/pinentry)
 fi
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+function motd() {
+  local IFS=$'\n'
+  local msgs=('C-f  Move forward char'
+              'M-f  Move forward char'
+              'C-b  Move backward char'
+              'M-b  Move backward word'
+              'C-p  Move up'
+              'C-n  Move down'
+              'C-a  Jump to beginning of line'
+              'C-e  Jump to end of line'
+              'C-d  Delete forward char'
+              'M-d  Delete forward word'
+              'del  Delete backward char'
+              'M-b  Delete backward word'
+              'C-u  Delete entire line'
+              'M-k  Custom - delete forward to end of line'
+              'M-l  Custom - delete forward to end of line')
+
+  printf "\033[0;90m"
+
+  for s in ${msgs[@]}; do
+    printf "$s\n"
+  done
+
+  printf "\033[0m\n"
+}
+
+motd
+
 eval "$(rbenv init -)"
-eval "$(pandoc --bash-completion)"
+eval "$(nodenv init -)"
+eval "$(jenv init -)"

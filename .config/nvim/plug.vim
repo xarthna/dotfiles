@@ -13,6 +13,7 @@ call plug#begin()
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'wellle/targets.vim'
+  Plug 'junegunn/goyo.vim'
 
   " CLOJURE
   Plug 'Olical/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
@@ -22,6 +23,7 @@ call plug#begin()
   Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': ['clojure', 'scheme']}
 
   " Colorschemes "
-  Plug 'drewtempelmeyer/palenight.vim'
+  Plug 'chuling/ci_dark'
+  "Plug 'drewtempelmeyer/palenight.vim'
   "Plug 'morhetz/gruvbox'
 call plug#end()

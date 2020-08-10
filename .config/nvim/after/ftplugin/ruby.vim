@@ -118,10 +118,22 @@ function! UpdateLinterMessage()
   endif
 endfunction
 
+function! SaveAfterFix(job_id, data, event)
+  silent :w expand('%')<cr>
+  call LinterUpdateView(job_id, data, event)
+endfunction
+
 function! RunLinter()
   let l:callback = {'on_stdout': 'LinterUpdateView', 'stdout_buffered': v:true} 
   call jobstart(&makeprg . ' ' . expand('<afile>'), l:callback)
 endfunction
+
+function! LinterFix()
+  let l:callback = {'on_stdout': 'SaveAfterFix', 'stdout_buffered': v:true} 
+  call jobstart(&makeprg . ' -a ' . expand('%'), l:callback)
+endfunction
+
+command! LinterFix call LinterFix()
 
 augroup linting
   autocmd!
