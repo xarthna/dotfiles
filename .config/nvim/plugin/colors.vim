@@ -8,7 +8,7 @@ function! MyOverrides() abort
   hi LinterOk guifg=#00FF00 guibg=#2c323c
   hi LinterWarn guifg=#EAF940 guibg=#2c323c
   hi LinterError guifg=#FF0000 guibg=#2c323c
-  hi Path guifg=#8be9fd guibg=#2c323c gui=italic
+  hi Path guifg=#79b8ff guibg=#24292e gui=italic
   hi ModeOrange guibg=#FE8019 guifg=#262626
   hi ModeGreen guibg=#B8BB26 guifg=#262626
   hi ModeAqua guibg=#8EC07C guifg=#262626

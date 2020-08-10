@@ -3,8 +3,6 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 let g:ruby_host_prog = '$HOME/.rbenv/shims/neovim-ruby-host'
 let g:node_host_prog = '$HOME/.nodenv/shims/neovim-node-host'
 
-
-
 let g:os = system('uname -s')
 let g:isMac = v:false
 let g:isLinux = v:false
@@ -28,7 +26,7 @@ set termguicolors
 
 set background=dark
 
-colo palenight
+colo ci_dark
 
 set clipboard=unnamedplus
 set completeopt=menu,menuone,noinsert,noselect
@@ -37,7 +35,6 @@ set copyindent
 set cursorline
 set diffopt+=iwhiteeol,indent-heuristic,algorithm:histogram
 set errorformat^=%f:%l:%c:\ %t:%m
-set fo-=ro
 set expandtab
 set guicursor=n-v:block,i-c:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait10-blinkoff150-blinkon175
 set hidden
