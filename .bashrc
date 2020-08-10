@@ -42,7 +42,7 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-export PS1="\[\e[1;3m\]\W\[\e[0m\]\[\e[1;36m\] >\[\e[0m\] "
+export PS1="\[\e[1;3m\]\W\[\e[0m\]\[\e[1;34m\] >\[\e[0m\]\[\e[1;35m\]>\[\e[0m\]\[\e[1;38;5;214m\]>\[\e[0m\] "
 
 function motd() {
   local IFS=$'\n'
