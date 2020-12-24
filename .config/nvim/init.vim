@@ -3,6 +3,8 @@ let g:python3_host_prog = '$HOME/.asdf/shims/python'
 let g:python_host_prog = '$HOME/.asdf/shims/python2'
 let g:ruby_host_prog = '$HOME/.asdf/shims/neovim-ruby-host'
 let g:loaded_node_provider = 0
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 
 let g:os = trim(system('uname -s'))
 let g:isMac = v:false
@@ -80,7 +82,7 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <expr> <esc> pumvisible() ? "\<C-e>" : "\<esc>"
 inoremap <special><expr> <Esc>[200~ XTermPasteBegin()
 map Q <nop>
-nnoremap <silent> <C-n> :Exp<CR>
+nnoremap <silent> <C-n> :Fern . -drawer -toggle<CR>
 nmap <silent> <localleader>l <Plug>LocationListToggle
 nmap <silent> <localleader>q <Plug>QuickFixToggle
 nnoremap ' `
@@ -114,8 +116,6 @@ nnoremap N Nzz
 nnoremap n nzz
 inoremap <expr><tab> (pumvisible() ? "\<C-n>" : "\<tab>")
 inoremap <expr><S-tab> (pumvisible() ? "\<C-p>" : "\<S-tab>")
-"vnoremap / /\v
-"nnoremap / /\v
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
