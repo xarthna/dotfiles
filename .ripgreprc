@@ -1,16 +1,10 @@
 --max-columns=150
 
-# Using glob patterns to include/exclude files or folders
 --glob=!.git/*
 
-#  Set the colors.
 --colors=line:none
 --colors=path:none
-#--colors=line:style:bold
 --colors=match:fg:green
 
-# Because who cares about case!?
 --smart-case
-
-# Search hidden
 --hidden

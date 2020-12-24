@@ -18,6 +18,10 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export GPG_TTY=$(tty)
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 export BASH_SILENCE_DEPRECATION_WARNING=1
-export PATH="/usr/local/opt/helm@2/bin:$PATH"
+export PATH="/usr/local/opt/helm@2/bin:/usr/local/opt/curl/bin:/usr/local/sbin:~/bin:$PATH"
 
 source $HOME/.bashrc
+
+. /usr/local/opt/asdf/asdf.sh
+
+. /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash

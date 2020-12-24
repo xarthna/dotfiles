@@ -5,17 +5,15 @@ alias ls="ls -FG"
 alias lh="ls -ld .?*"
 alias ll="ls -lhaFG"
 alias g="git"
+alias b="brew"
 alias be="bundle exec"
 alias d="docker"
 alias dc="docker-compose"
-alias f="fg"
 alias v="nvim"
 alias vim="nvim"
 alias _vim="vim"
-alias python="python3"
 alias gcal="gcalcli"
 alias ts='date "+%Y-%m-%d"'
-#alias ag='ag --path-to-ignore ~/.ignore'
 alias lsv="ls|fzf --preview '[ -d {} ] && tree -C {}|head -200 || cat {}'"
 alias k="kubectl"
 alias ssh="TERM=xterm ssh "
@@ -44,6 +42,10 @@ fi
 
 export PS1="\[\e[1;3m\]\W\[\e[0m\]\[\e[1;34m\] >\[\e[0m\]\[\e[1;35m\]>\[\e[0m\]\[\e[1;38;5;214m\]>\[\e[0m\] "
 
+function cheat() {
+  curl cheat.sh/$1 | less -R
+}
+
 function motd() {
   local IFS=$'\n'
   local msgs=('C-f  Move forward char'
@@ -60,7 +62,8 @@ function motd() {
               'M-b  Delete backward word'
               'C-u  Delete entire line'
               'M-k  Custom - delete forward to end of line'
-              'M-l  Custom - delete forward to end of line')
+              'M-j  Custom - delete backward to beginning of line'
+              'M-l  Custom - clear screen')
 
   printf "\033[0;90m"
 
@@ -72,16 +75,3 @@ function motd() {
 }
 
 motd
-
-if [ $(command -v rbenv) ]; then
-  eval "$(rbenv init -)"
-fi
-
-if [ $(command -v nodenv) ]; then
-  eval "$(nodenv init -)"
-fi
-
-if [ $(command -v jenv) ]; then
-  eval "$(jenv init -)"
-fi
-
