@@ -1,7 +1,8 @@
 " global mark V set here
-let g:python3_host_prog = trim(system('which python3'))
-let g:ruby_host_prog = '$HOME/.rbenv/shims/neovim-ruby-host'
-let g:node_host_prog = '$HOME/.nodenv/shims/neovim-node-host'
+let g:python3_host_prog = '$HOME/.asdf/shims/python'
+let g:python_host_prog = '$HOME/.asdf/shims/python2'
+let g:ruby_host_prog = '$HOME/.asdf/shims/neovim-ruby-host'
+let g:loaded_node_provider = 0
 
 let g:os = trim(system('uname -s'))
 let g:isMac = v:false
@@ -26,7 +27,7 @@ set termguicolors
 
 set background=dark
 
-colo ci_dark
+colo kuroi
 
 set clipboard=unnamedplus
 set completeopt=menu,menuone,noinsert,noselect
@@ -49,7 +50,10 @@ set noruler
 set noshowmode
 set noswapfile
 set nottimeout
+set ignorecase
+set smartcase
 set relativenumber
+set number
 set runtimepath+=/usr/local/opt/fzf
 set scrolloff=2
 set shiftround
@@ -125,4 +129,4 @@ function! FzfTagsCurrentWord()
   endif
 endfunction
 
-noremap <c-]> :call FzfTagsCurrentWord()<cr>
+noremap g] :call FzfTagsCurrentWord()<cr>

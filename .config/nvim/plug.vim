@@ -14,6 +14,8 @@ call plug#begin()
   Plug 'tpope/vim-surround'
   Plug 'wellle/targets.vim'
   Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/limelight.vim'
+  Plug 'lambdalisue/fern.vim'
 
   " CLOJURE
   Plug 'Olical/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
@@ -24,6 +26,8 @@ call plug#begin()
 
   " Colorschemes "
   Plug 'chuling/ci_dark'
+  Plug 'branwright1/salvation-vim'
+  Plug 'aonemd/kuroi.vim' 
   "Plug 'drewtempelmeyer/palenight.vim'
   "Plug 'morhetz/gruvbox'
 call plug#end()
