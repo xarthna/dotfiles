@@ -9,9 +9,9 @@ else
 fi
 
 if (( $percent > 59  )); then
-  echo "#[fg=#4ecf6c]#[italics]$percent%#[none]"
+  echo "#[fg=#4ecf6c] #[italics]$percent%#[none]"
 elif (( $percent > 19 )); then
-  echo "#[fg=#bdb43c]#[italics]$percent%#[none]"
+  echo "#[fg=#bdb43c] #[italics]$percent%#[none]"
 else
-  echo "#[fg=#cc0a00]#[italics]$percent%#[none]"
+  echo "#[fg=#cc0a00] #[italics]$percent%#[none]"
 fi
