@@ -21,9 +21,6 @@ augroup END
 function! OpenInitialTerminal()
   :sp
   :term
-  if g:isMac
-    resize -10
-  endif
   exe "normal i"
 endfunction
 
@@ -46,9 +43,6 @@ function! ToggleTerminal()
 
     if l:is_hidden
       exe 'sb' l:buf_nr
-      if g:isMac
-        resize -10
-      endif
     else
       exe l:win_nr . 'hide'
     endif
